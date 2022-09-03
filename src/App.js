@@ -1,5 +1,5 @@
 import React from "react";
-import { Routes, Route } from "react-router-dom"
+import { Routes, Route } from "react-router-dom";
 import "./App.css";
 
 import Landing from "./components/Landing/Landing";
@@ -10,9 +10,9 @@ function App() {
   return (
     <div className="App">
       <Routes>
-        <Route path="/" element={ <Landing /> } />
-        <Route path="/quiz" element={ <Quiz /> } />
-        <Route path="/results" element={ <Results /> } />
+        <Route path="/" element={<Landing />} />
+        <Route path="/quiz" element={<Quiz />} />
+        <Route path="/results" element={<Results />} />
       </Routes>
     </div>
   );
