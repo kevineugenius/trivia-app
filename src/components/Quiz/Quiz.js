@@ -8,6 +8,16 @@ function Quiz() {
     setNumber((n) => n + 1);
   }, []);
 
+  useEffect(() => {
+    async function getData() {
+      const response = await fetch("https://opentdb.com/api.php?amount=10&difficulty=hard&type=boolean");
+      const body = await response.json();
+      console.log(body);
+    }
+    
+    getData();
+  }, []);
+
   return (
     <div>
       <h2>This is where the quiz would be {number}</h2>
