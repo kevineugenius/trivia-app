@@ -11,7 +11,7 @@ function Landing() {
   return (
     <div>
       <Header text="Welcome to the Trivia Challenge!" />
-      <div></div>
+      <div className="content"></div>
       <Footer element={getQuizStartElement} />
     </div>
   );

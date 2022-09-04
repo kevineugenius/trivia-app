@@ -34,26 +34,32 @@ function Quiz(props) {
     <div>
       {number < 10 && (
         <>
-          <Header text={props.questions[number].category} />
-          <div
-            dangerouslySetInnerHTML={{
-              __html: DOMPurify.sanitize(props.questions[number].question),
-            }}
-          ></div>
-          <div>{number + 1} of 10</div>
-          <div>{props.questions[number].correct_answer}</div>
-          <button
-            onClick={() => advance(questions[number].correct_answer === "True")}
-          >
-            True
-          </button>
-          <button
-            onClick={() =>
-              advance(questions[number].correct_answer === "False")
-            }
-          >
-            False
-          </button>
+          <Header className="header" text={props.questions[number].category} />
+          <div className="content quizbox">
+            <div
+              className="centered"
+              dangerouslySetInnerHTML={{
+                __html: DOMPurify.sanitize(props.questions[number].question),
+              }}
+            ></div>
+            <div className="centered">{number + 1} of 10</div>
+            <div className="centered">
+              <button
+                onClick={() =>
+                  advance(questions[number].correct_answer === "True")
+                }
+              >
+                True
+              </button>
+              <button
+                onClick={() =>
+                  advance(questions[number].correct_answer === "False")
+                }
+              >
+                False
+              </button>
+            </div>
+          </div>
         </>
       )}
     </div>

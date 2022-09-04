@@ -1,4 +1,5 @@
 import React from "react";
+import "./Results.css"
 import Header from "../Header/Header";
 import Footer from "../Footer/Footer";
 
@@ -12,7 +13,7 @@ function Results(props) {
     for (let i = 0; i < scores.length; i++) {
       if (scores[i] === 1) total++;
     }
-    return "You scored " + total;
+    return "You scored " + total + " / 10";
   }
 
   function displayList() {
@@ -32,7 +33,7 @@ function Results(props) {
   }
 
   function getQuizReStartElement() {
-    return <button onClick={restart}>play again</button>;
+    return <button onClick={restart}>PLAY AGAIN?</button>;
   }
 
   return (
