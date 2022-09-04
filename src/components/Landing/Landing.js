@@ -5,7 +5,7 @@ import Header from "../Header/Header";
 function Landing() {
   return (
     <div>
-      <Header text="Landing" />
+      <Header text="Welcome to the Trivia Challenge!" />
       <div>
         <Link to="quiz">click here</Link>
       </div>

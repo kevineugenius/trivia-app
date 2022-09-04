@@ -1,19 +1,33 @@
 import React from "react";
-import { Link } from "react-router-dom";
 import Header from "../Header/Header";
 
-function Results() {
+function Results(props) {
+  const {questions, scores, restart} = props;
+
   function score() {
-    return "You scored ";
+    let total = 0;
+    for (let i = 0; i < scores.length; i++) {
+      if (scores[i] === 1) total++;
+    }
+    return "You scored " + total;
   }
+
+  function displayList() {
+    const items = scores.map((score, index) => 
+      <li key={index.toString()}>
+        {score > 0 ? "+" : (score < 0 ? "-" : " ")} 
+        {questions[index].question}</li>
+    )
+    return <ul>{items}</ul>
+  }
+
   return (
     <div>
       <Header text={score()} />
       <div>
-        <Link to="/quiz">go back</Link>
-        <br />
-        <Link to="/">go to start</Link>
+        {displayList()}
       </div>
+      <button onClick={restart}>play again</button>
     </div>
   );
 }
