@@ -1,34 +1,55 @@
-import React, { useState, useEffect } from "react";
-import { Link } from "react-router-dom";
-import spinner from "../../resources/images/Rolling-1s-200px.svg"
+import React, { useEffect, useState } from "react";
+import Header from "../Header/Header";
 
-function Quiz() {
-  const [questions, setQuestions] = useState();
+function Quiz(props) {
   const [number, setNumber] = useState(0);
-  const [loaded, setLoaded] = useState(false);
+  const [scores, setScores] = useState([0, 0, 0, 0, 0, 0, 0, 0, 0, 0]);
+  const questions = props.questions;
+  const updateQuiz = props.updateQuiz;
+
+  async function advance(answeredCorrectly) {
+    console.log("updating answer " + (number + 1));
+    await updateScores(number, answeredCorrectly ? 1 : -1);
+  }
 
   useEffect(() => {
-    async function getData() {
-      const response = await fetch("https://opentdb.com/api.php?amount=10&difficulty=hard&type=boolean");
-      const body = await response.json();
-      await setQuestions(body.results);
-      setLoaded(true);
+    console.log("useeffect says ", scores, number);
+    if (number === 10) {
+      console.log("Updating quiz");
+      updateQuiz(scores);
+    } else if (scores[number] !== 0) {
+      setNumber(number + 1);
     }
+  }, [number, scores, updateQuiz]);
 
-    getData();
-  }, []);
+  async function updateScores(index, value) {
+    const scoreArray = [...scores];
+    scoreArray[index] = value;
+    setScores(scoreArray);
+  }
 
   return (
     <div>
-      { loaded ?
-        (<h2>{ questions[number].category }</h2>) :
-        (<img src={spinner} alt="loading..." />)
-      } 
-      <div>
-        <Link to="/">go back</Link>
-        <br />
-        <Link to="/results">go forward</Link>
-      </div>
+      {number < 10 && (
+        <>
+          <Header text={props.questions[number].category} />
+          <div>{props.questions[number].question}</div>
+          <div>{number + 1} of 10</div>
+          <div>{props.questions[number].correct_answer}</div>
+          <button
+            onClick={() => advance(questions[number].correct_answer === "True")}
+          >
+            True
+          </button>
+          <button
+            onClick={() =>
+              advance(questions[number].correct_answer === "False")
+            }
+          >
+            False
+          </button>
+        </>
+      )}
     </div>
   );
 }

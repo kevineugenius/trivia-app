@@ -1,10 +1,14 @@
 import React from "react";
 import { Link } from "react-router-dom";
+import Header from "../Header/Header";
 
 function Results() {
+  function score() {
+    return "You scored ";
+  }
   return (
     <div>
-      <h2>Congrats!</h2>
+      <Header text={score()} />
       <div>
         <Link to="/quiz">go back</Link>
         <br />
