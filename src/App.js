@@ -4,7 +4,6 @@ import "./App.css";
 
 import Landing from "./components/Landing/Landing";
 import QuizWrapper from "./components/QuizWrapper/QuizWrapper";
-import Results from "./components/Results/Results";
 
 /*
 In some ways the router working this way is cleaner but as

@@ -1,8 +1,11 @@
 import React from "react";
 import Header from "../Header/Header";
+import Footer from "../Footer/Footer";
 
 function Results(props) {
-  const {questions, scores, restart} = props;
+  const DOMPurify = require("dompurify")(window);
+
+  const { questions, scores, restart } = props;
 
   function score() {
     let total = 0;
@@ -13,21 +16,30 @@ function Results(props) {
   }
 
   function displayList() {
-    const items = scores.map((score, index) => 
-      <li key={index.toString()}>
-        {score > 0 ? "+" : (score < 0 ? "-" : " ")} 
-        {questions[index].question}</li>
-    )
-    return <ul>{items}</ul>
+    const items = scores.map((score, index) => (
+      <li
+        key={index.toString()}
+        dangerouslySetInnerHTML={{
+          __html: DOMPurify.sanitize(
+            (score > 0 ? "+" : score < 0 ? "-" : " ") +
+              " " +
+              questions[index].question
+          ),
+        }}
+      />
+    ));
+    return <ul>{items}</ul>;
+  }
+
+  function getQuizReStartElement() {
+    return <button onClick={restart}>play again</button>;
   }
 
   return (
     <div>
       <Header text={score()} />
-      <div>
-        {displayList()}
-      </div>
-      <button onClick={restart}>play again</button>
+      <div>{displayList()}</div>
+      <Footer element={getQuizReStartElement} />
     </div>
   );
 }

@@ -2,6 +2,8 @@ import React, { useEffect, useState } from "react";
 import Header from "../Header/Header";
 
 function Quiz(props) {
+  const DOMPurify = require("dompurify")(window);
+
   const [number, setNumber] = useState(0);
   const [scores, setScores] = useState([0, 0, 0, 0, 0, 0, 0, 0, 0, 0]);
   const questions = props.questions;
@@ -33,7 +35,11 @@ function Quiz(props) {
       {number < 10 && (
         <>
           <Header text={props.questions[number].category} />
-          <div>{props.questions[number].question}</div>
+          <div
+            dangerouslySetInnerHTML={{
+              __html: DOMPurify.sanitize(props.questions[number].question),
+            }}
+          ></div>
           <div>{number + 1} of 10</div>
           <div>{props.questions[number].correct_answer}</div>
           <button
