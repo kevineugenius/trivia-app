@@ -1,26 +1,29 @@
 import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
+import spinner from "../../resources/images/Rolling-1s-200px.svg"
 
 function Quiz() {
-  const [number, setNumber] = useState(5);
-
-  useEffect(() => {
-    setNumber((n) => n + 1);
-  }, []);
+  const [questions, setQuestions] = useState();
+  const [number, setNumber] = useState(0);
+  const [loaded, setLoaded] = useState(false);
 
   useEffect(() => {
     async function getData() {
       const response = await fetch("https://opentdb.com/api.php?amount=10&difficulty=hard&type=boolean");
       const body = await response.json();
-      console.log(body);
+      await setQuestions(body.results);
+      setLoaded(true);
     }
-    
+
     getData();
   }, []);
 
   return (
     <div>
-      <h2>This is where the quiz would be {number}</h2>
+      { loaded ?
+        (<h2>{ questions[number].category }</h2>) :
+        (<img src={spinner} alt="loading..." />)
+      } 
       <div>
         <Link to="/">go back</Link>
         <br />
