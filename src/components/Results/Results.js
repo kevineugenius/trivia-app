@@ -2,10 +2,9 @@ import React from "react";
 import "./Results.css"
 import Header from "../Header/Header";
 import Footer from "../Footer/Footer";
+import DOMPurify from "dompurify";
 
 function Results(props) {
-  const DOMPurify = require("dompurify")(window);
-
   const { questions, scores, restart } = props;
 
   function score() {

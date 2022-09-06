@@ -26,7 +26,6 @@ function QuizWrapper() {
 
   // Control functions
   const startOver = () => {
-    console.log("starting over");
     setLoaded(false);
     setScores([]);
     setInProgress(true);
@@ -34,7 +33,6 @@ function QuizWrapper() {
   };
 
   const resultsUpdater = (score) => {
-    console.log("it worked", score);
     setScores(score);
     // todo: potential timing bug
     setInProgress(false);

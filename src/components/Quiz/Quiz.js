@@ -1,32 +1,25 @@
 import React, { useEffect, useState } from "react";
 import Header from "../Header/Header";
+import DOMPurify from "dompurify";
 
 function Quiz(props) {
-  const DOMPurify = require("dompurify")(window);
-
   const [number, setNumber] = useState(0);
   const [scores, setScores] = useState([0, 0, 0, 0, 0, 0, 0, 0, 0, 0]);
   const questions = props.questions;
   const updateQuiz = props.updateQuiz;
 
-  async function advance(answeredCorrectly) {
-    console.log("updating answer " + (number + 1));
-    await updateScores(number, answeredCorrectly ? 1 : -1);
-  }
-
   useEffect(() => {
-    console.log("useeffect says ", scores, number);
     if (number === 10) {
-      console.log("Updating quiz");
       updateQuiz(scores);
     } else if (scores[number] !== 0) {
       setNumber(number + 1);
     }
+    // todo: ESLint wants all of these here but at least updateQuiz isn't necessary. Perhaps a refactor can fix
   }, [number, scores, updateQuiz]);
-
-  async function updateScores(index, value) {
+  
+  function advance(answeredCorrectly) {
     const scoreArray = [...scores];
-    scoreArray[index] = value;
+    scoreArray[number] = answeredCorrectly ? 1 : -1;
     setScores(scoreArray);
   }
 

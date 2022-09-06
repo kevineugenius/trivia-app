@@ -37,8 +37,6 @@
     ]
   },
   "devDependencies": {
-    "dompurify": "^2.4.0",
-    "eslint": "^8.23.0",
-    "prettier": "^2.7.1"
+    "dompurify": "^2.4.0"
   }
 }
